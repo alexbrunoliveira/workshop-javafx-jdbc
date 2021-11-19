@@ -1,6 +1,7 @@
 package gui;
 
 import java.io.IOException;
+import java.lang.ModuleLayer.Controller;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -50,8 +51,9 @@ public class DepartmentListController implements Initializable {
 	public void onBtNewAction(ActionEvent event) {
 		
 		Stage parentStage = Utils.currentAge(event);
+		Department obj = new Department();
 		// chamando método 
-		creatDialogForm("/gui/DepartmentForm.fxml", parentStage);
+		creatDialogForm(obj,"/gui/DepartmentForm.fxml", parentStage);
 	}
 
 	// Invertendo controle
@@ -93,10 +95,14 @@ public class DepartmentListController implements Initializable {
 		tableViewDepartment.setItems(obsList);
 	}
 
-	private void creatDialogForm(String absoluteName, Stage parentStage) {
+	private void creatDialogForm(Department obj,String absoluteName, Stage parentStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
+			
+			DepartmentFormController controller = loader.getController();
+			controller.setDepartment(obj);
+			controller.updateFormData();
 			
 			// Carregando uma janela em frente a anterior
 			
