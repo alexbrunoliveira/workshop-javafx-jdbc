@@ -4,8 +4,8 @@ import java.io.IOException;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -16,9 +16,15 @@ public class Main extends Application {
 			// instanciando o objeto fxmlLoader
 			
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/MainView.fxml"));
-			Parent parent = loader.load();
+			ScrollPane scrollPane = loader.load();
+			
+			// Comando que faz menu bar preencher a tela
+			
+			scrollPane.setFitToHeight(true);
+			scrollPane.setFitToWidth(true);
+			
 			// objeto criado do tipo Scene
-			Scene mainScene = new Scene(parent);
+			Scene mainScene = new Scene(scrollPane);
 			
 			// cena principal setada
 			
