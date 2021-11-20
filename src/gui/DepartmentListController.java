@@ -1,12 +1,12 @@
 package gui;
 
 import java.io.IOException;
-import java.lang.ModuleLayer.Controller;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
 import javafx.collections.FXCollections;
@@ -27,7 +27,7 @@ import javafx.stage.Stage;
 import model.entities.Department;
 import model.services.DepartmentService;
 
-public class DepartmentListController implements Initializable {
+public class DepartmentListController implements Initializable, DataChangeListener {
 
 	// Carregando dados Mockados
 
@@ -104,7 +104,9 @@ public class DepartmentListController implements Initializable {
 			controller.setDepartment(obj);
 			// Injetando DepartMentService
 			controller.setDepartmentService(new DepartmentService());
+			controller.subscribeDataChangeListener(this);
 			controller.updateFormData();
+			
 			
 			// Carregando uma janela em frente a anterior
 			
@@ -124,5 +126,11 @@ public class DepartmentListController implements Initializable {
 		catch (IOException e ) {
 			Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), AlertType.ERROR);
 		}
+	}
+
+	@Override
+	public void onDataChanged() {
+		 updateTableView();
+		 
 	}
 }
