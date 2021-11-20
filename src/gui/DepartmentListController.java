@@ -91,6 +91,11 @@ public class DepartmentListController implements Initializable, DataChangeListen
 
 		// Carregando dados da lista
 		List<Department> list = service.findAll();
+		
+		// Com esse  padrão obserever é usado na maioria das aplicações 
+		// Corma de comunicação autamente desacoplada, sendo assim o objeto que 
+		// emite o evento ñ conhece o objeto q o escuta 
+		
 		obsList = FXCollections.observableArrayList(list);
 		tableViewDepartment.setItems(obsList);
 	}
